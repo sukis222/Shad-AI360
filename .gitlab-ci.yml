@@ -8,13 +8,17 @@
 variables:
   GIT_DEPTH: 1
   GIT_STRATEGY: clone
-  REGISTRY: gitlab.manytask.org:5050/python360/public-2024-fall
-  REF_DIR: /opt/shad
+  REGISTRY: gitlab.manytask.org:5050/python360
+  REF_DIR: /opt/checker/private
 
 
 # Testing and Grading all tasks
 grade:
-  image: $REGISTRY/testenv:latest
+  image:
+    name: $REGISTRY/public-2024-fall:latest
+    pull_policy: always
+    entrypoint: [""]
+
   rules:
     # never run in public repo
     - if: $CI_PROJECT_NAME =~ /^public-(fall|spring)-20\d\d/
@@ -35,7 +39,7 @@ grade:
 
 # Checking contribution to the public repo
 check:
-  image: $REGISTRY/testenv:latest
+  image: $REGISTRY/public-2024-fall:latest
   rules:
     # never run in public repo
     - if: $CI_PROJECT_NAME =~ /^public-(fall|spring)-20\d\d/
