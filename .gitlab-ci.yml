@@ -8,7 +8,7 @@
 variables:
   GIT_DEPTH: 1
   GIT_STRATEGY: clone
-  REGISTRY: registry.gitlab.com/manytask/test/course-template-test-public
+  REGISTRY: gitlab.manytask.org:5050/python360/public-2024-fall
   REF_DIR: /opt/shad
 
 
