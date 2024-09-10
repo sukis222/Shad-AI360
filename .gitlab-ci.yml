@@ -6,7 +6,7 @@
 # students has developer role, so they can't change ci/cd settings, so the file is fixed
 
 variables:
-  GIT_DEPTH: 1
+  GIT_DEPTH: 10
   GIT_STRATEGY: clone
   REGISTRY: gitlab.manytask.org:5050/python-ai360/public-2024-fall
   REF_DIR: /opt/shad
