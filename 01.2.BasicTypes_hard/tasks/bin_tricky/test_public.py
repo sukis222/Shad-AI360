@@ -5,7 +5,7 @@ import itertools
 import pytest
 import testlib
 
-from .bin_tricky import find_median
+from bin_tricky import find_median
 
 
 @dataclasses.dataclass
