@@ -4,7 +4,7 @@ import copy
 import pytest
 import testlib
 
-from .reverse_list import reverse_iterative, reverse_inplace_iterative, reverse_inplace, reverse_reversed, reverse_slice
+from reverse_list import reverse_iterative, reverse_inplace_iterative, reverse_inplace, reverse_reversed, reverse_slice
 
 
 @dataclasses.dataclass

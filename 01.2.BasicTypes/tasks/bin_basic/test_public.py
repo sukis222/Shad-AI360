@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 import testlib
 
-from .bin_basic import find_value
+from bin_basic import find_value
 
 
 @dataclasses.dataclass

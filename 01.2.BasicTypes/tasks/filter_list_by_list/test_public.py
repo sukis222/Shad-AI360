@@ -4,7 +4,7 @@ import dataclasses
 import pytest
 import testlib
 
-from .filter_list_by_list import filter_list_by_list
+from filter_list_by_list import filter_list_by_list
 
 
 @dataclasses.dataclass

@@ -4,7 +4,7 @@ import dataclasses
 import pytest
 import testlib
 
-from .merge_lists import merge_iterative, merge_sorted
+from merge_lists import merge_iterative, merge_sorted
 
 
 @dataclasses.dataclass

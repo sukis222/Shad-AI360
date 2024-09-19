@@ -4,7 +4,7 @@ import typing as tp
 import pytest
 import testlib
 
-from .fizz_buzz import get_fizz_buzz
+from fizz_buzz import get_fizz_buzz
 
 
 @dataclasses.dataclass

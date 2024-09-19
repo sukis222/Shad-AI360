@@ -2,7 +2,7 @@ import copy
 
 import testlib
 
-from .iterate_me import get_squares, get_indices_from_one, get_max_element_index, \
+from iterate_me import get_squares, get_indices_from_one, get_max_element_index, \
     get_every_second_element, get_first_three_index, get_last_three_index, get_sum, get_min_max, \
     get_by_index
 

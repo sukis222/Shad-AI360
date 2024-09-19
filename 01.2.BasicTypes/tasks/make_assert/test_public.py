@@ -1,7 +1,7 @@
 import pytest
 import testlib
 
-from .make_assert import test_check_ctr, ctr_correct_implementation
+from make_assert import test_check_ctr, ctr_correct_implementation
 
 
 ###################
