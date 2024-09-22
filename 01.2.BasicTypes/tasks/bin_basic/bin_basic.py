@@ -12,7 +12,7 @@ def find_value(nums: list[int] | range, value: int) -> bool:
             left = mid
         if nums[left] == value:
             return True
-
+        print(mid)
     return False
 
 d = list(map(int, input().split()))
