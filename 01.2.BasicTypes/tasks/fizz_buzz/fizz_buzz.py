@@ -1,5 +1,4 @@
 def get_fizz_buzz(n: int) -> list[int | str]:
-
     sequence = [i for i in range(1, n+1)]
     for i in range(2, n, 3):
         sequence[i] = 'Fizz'
