@@ -3,7 +3,6 @@ def find_value(nums: list[int] | range, value: int) -> bool:
     right = len(nums)
 
     while right - left > 1:
-
         mid = (right + left) // 2
         if nums[mid] > value:
             right = mid
