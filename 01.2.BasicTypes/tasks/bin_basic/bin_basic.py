@@ -13,7 +13,3 @@ def find_value(nums: list[int] | range, value: int) -> bool:
             return True
 
     return False
-
-d = list(map(int, input().split()))
-a = int(input())
-print(find_value(d, a))
