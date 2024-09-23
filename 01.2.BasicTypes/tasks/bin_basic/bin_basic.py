@@ -1,4 +1,10 @@
 def find_value(nums: list[int] | range, value: int) -> bool:
+    """
+        Find value in sorted sequence
+        :param nums: sequence of integers. Could be empty
+        :param value: integer to find
+        :return: True if value exists, False otherwise
+        """
     left = 0
     right = len(nums)
     if right > 0:
@@ -12,9 +18,4 @@ def find_value(nums: list[int] | range, value: int) -> bool:
             left = mid
         if nums[left] == value:
             return True
-        print(mid)
     return False
-
-d = list(map(int, input().split()))
-a = int(input())
-print(find_value(d, a))
