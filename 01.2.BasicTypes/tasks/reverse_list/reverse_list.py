@@ -24,17 +24,3 @@ def reverse_reversed(lst: list[int]) -> list[int]:
 
 def reverse_slice(lst: list[int]) -> list[int]:
     return lst[::-1]
-
-
-'''a = [1, 2, 3, 4, 6]
-
-print(reverse_iterative(a))
-print(a)
-print(reverse_inplace_iterative(a))
-print(a)
-print(reverse_inplace(a))
-print(a)
-print(reverse_reversed(a))
-print(a)
-print(reverse_slice(a))
-print(a)'''
