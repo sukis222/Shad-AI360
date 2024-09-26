@@ -103,5 +103,4 @@ def get_by_index(elements: list[int], i: int, boundary: int) -> int | None:
     :param boundary: boundary for check element value
     :return: element at index `i` from `elements` if element greater then boundary and None otherwise
     """
-    ans = elements[i]
-    return ans if i < len(elements) and ans > boundary else None
+    return ans if (ans := elements[i]) > boundary else None
