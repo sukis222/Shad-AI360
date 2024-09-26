@@ -3,6 +3,7 @@ def get_squares(elements: list[int]) -> list[int]:
     :param elements: list with integer values
     :return: list with squared values
     """
+    
 
 
 # ====================================================================================================
