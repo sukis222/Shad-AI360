@@ -28,7 +28,7 @@ def get_max_element_index(elements: list[int]) -> int | None:
     if len(elements) > 0:
         mx = 0
         for i in range(len(elements)):
-            if elements[mx] > elements[i]:
+            if elements[mx] < elements[i]:
                 mx = i
         return mx
 
@@ -103,4 +103,5 @@ def get_by_index(elements: list[int], i: int, boundary: int) -> int | None:
     :param boundary: boundary for check element value
     :return: element at index `i` from `elements` if element greater then boundary and None otherwise
     """
-    return elements[i] if i < len(elements) and elements[i] > boundary else None
+    ans = elements[i]
+    return ans if i < len(elements) and ans > boundary else None
