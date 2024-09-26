@@ -18,7 +18,6 @@ def filter_list_by_list(lst_a: list[int] | range, lst_b: list[int] | range) -> l
 
         if lst_a[i] == lst_b[j]:
             i += 1
-            j += 1
         elif lst_a[i] < lst_b[j]:
             s.append(lst_a[i])
             i += 1
