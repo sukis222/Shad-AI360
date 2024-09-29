@@ -31,6 +31,7 @@ def get_max_element_index(elements: list[int]) -> int | None:
             if elements[mx] < elements[i]:
                 mx = i
         return mx
+    return None
 
 
 # ====================================================================================================
@@ -55,6 +56,7 @@ def get_first_three_index(elements: list[int]) -> int | None:
     for i in range(len(elements)):
         if elements[i] == 3:
             return i
+    return None
 
 
 # ====================================================================================================
@@ -68,6 +70,7 @@ def get_last_three_index(elements: list[int]) -> int | None:
     for i in range(len(elements)-1, -1, -1):
         if elements[i] == 3:
             return i
+    return None
 
 
 # ====================================================================================================
