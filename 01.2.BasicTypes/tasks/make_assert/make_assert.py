@@ -26,6 +26,8 @@ def ctr_correct_implementation(clicks: int, shows: int) -> float:
     :return: clicks-through rate.
              If there are no shows, return 0.0
     """
+    assert clicks <= shows or shows == 0, "Clicks greater than shows"
+    return clicks / shows if shows != 0 else 0.0
 
 
 ##############
@@ -43,3 +45,7 @@ def test_check_ctr(clicks: int, shows: int, expected_result: float) -> None:
     :param expected_result: result to compare with
     :return: None
     """
+    assert ctr(clicks, shows) == expected_result, "Wrong ctr calculation"
+    return None
+
+
