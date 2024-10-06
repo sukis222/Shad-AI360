@@ -34,6 +34,3 @@ def caesar_encrypt(message: str, n: int) -> str:
             message_ans += fk[i]
 
     return message_ans
-
-
-#print(caesar_encrypt('Hello, Arthur', 52))
