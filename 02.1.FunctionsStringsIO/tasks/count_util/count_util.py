@@ -66,5 +66,4 @@ def count_util(text: str, flags: str | None = None) -> dict[str, int]:
                  ans['words'] = answer['words']
     elif flags == '' or flags is None:
         ans = answer
-        print(ans)
     return ans
