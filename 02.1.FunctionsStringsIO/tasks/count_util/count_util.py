@@ -47,14 +47,14 @@ def count_util(text: str, flags: str | None = None) -> dict[str, int]:
     answer['words'] = sch - repr(text).count(r'\t')
     ans = dict()
     if flags is not None and flags != '':
-         for j in flags:
-             if j == 'm':
+         for sec_elem in flags:
+             if sec_elem == 'm':
                  ans['chars'] = answer['chars']
-             if j == 'l':
+             if sec_elem == 'l':
                  ans['lines'] = answer['lines']
-             if j == 'L':
+             if sec_elem == 'L':
                  ans['longest_line'] = answer['longest_line']
-             if j == 'w':
+             if sec_elem == 'w':
                  ans['words'] = answer['words']
     elif flags == '' or flags is None:
         ans = answer
