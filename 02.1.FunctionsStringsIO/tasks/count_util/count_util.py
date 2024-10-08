@@ -35,7 +35,6 @@ def count_util(text: str, flags: str | None = None) -> dict[str, int]:
                 f = True
             elif elem[j] == ' ':
                 f = False
-
     max_len = 0
     al_len = 0
     for elem in split_text:
