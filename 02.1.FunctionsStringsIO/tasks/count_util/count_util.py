@@ -17,19 +17,11 @@ def count_util(text: str, flags: str | None = None) -> dict[str, int]:
         * "longest_line" - the longest line length
         * "words" - amount of words
     """
-    fl = []
-    answer = {'chars' : 0, 'lines' : 0, 'words' : 0, 'longest_line' : 0,}
-    real_text = repr(text)
-    print(real_text)
+    answer = {'chars' : 0, 'lines' : 0, 'words' : 0, 'longest_line' : 0}
 
     for elem in text:
         if elem.isalpha() or elem == ' ':
             answer['chars'] += 1
-
-    if flags is not None:
-        for elem in flags:
-            if elem == 'm' or elem == 'l' or elem == 'L' or elem == 'w':
-                fl.append(elem)
 
     answer['lines'] = text.count('\n')
     answer['chars'] += answer['lines']
@@ -37,11 +29,11 @@ def count_util(text: str, flags: str | None = None) -> dict[str, int]:
     sch = 0
     for elem in split_text:
         f = False
-        for i in range(len(elem)):
-            if elem[i] != ' ' and not f:
+        for j in range(len(elem)):
+            if elem[j] != ' ' and not f:
                 sch += 1
                 f = True
-            elif elem[i] == ' ':
+            elif elem[j] == ' ':
                 f = False
 
     max_len = 0
@@ -55,14 +47,14 @@ def count_util(text: str, flags: str | None = None) -> dict[str, int]:
     answer['words'] = sch - repr(text).count(r'\t')
     ans = dict()
     if flags is not None and flags != '':
-         for i in flags:
-             if i == 'm':
+         for j in flags:
+             if j == 'm':
                  ans['chars'] = answer['chars']
-             if i == 'l':
+             if j == 'l':
                  ans['lines'] = answer['lines']
-             if i == 'L':
+             if j == 'L':
                  ans['longest_line'] = answer['longest_line']
-             if i == 'w':
+             if j == 'w':
                  ans['words'] = answer['words']
     elif flags == '' or flags is None:
         ans = answer
