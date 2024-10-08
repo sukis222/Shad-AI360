@@ -1,5 +1,3 @@
-
-
 def count_util(text: str, flags: str | None = None) -> dict[str, int]:
     """
     :param text: text to count entities
@@ -53,7 +51,6 @@ def count_util(text: str, flags: str | None = None) -> dict[str, int]:
         if len(elem) > max_len:
             max_len = len(elem)
 
-    #answer['lines'] = len(split_text)
     answer['longest_line'] = max_len
     answer['words'] = sch - repr(text).count(r'\t')
     ans = dict()
@@ -70,8 +67,4 @@ def count_util(text: str, flags: str | None = None) -> dict[str, int]:
     elif flags == '' or flags is None:
         ans = answer
         print(ans)
-
     return ans
-
-#print(count_util(d, ''))
-#print((repr(d).count(r'\t')))
