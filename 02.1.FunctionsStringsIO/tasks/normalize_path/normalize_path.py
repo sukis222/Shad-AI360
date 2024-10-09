@@ -1,10 +1,11 @@
+from typing import List
+
+
 def normalize_path(path: str) -> str:
     """
     :param path: unix path to normalize
     :return: normalized path
     """
-    sec_path = []
-    sec_path_str = ''
 
     if path == '.' or path == '':
         return '.'
@@ -14,18 +15,9 @@ def normalize_path(path: str) -> str:
     else:
         root = False
 
-    '''for i in range(len(path)-1):
-        if path[i] == '/' and path[i+1] != '/':
-            sec_path.append('/')
-            sec_path_str += '/'
-        elif path[i] != '/':
-            sec_path.append(path[i])
-            sec_path_str += path[i]
-            
-    sec_path_str += path[-1]'''
     blocks = path.split('/')
 
-    ans_blocks = []
+    ans_blocks: List[str] = []
     for i in range(len(blocks)):
         if blocks[i] == '..':
             if len(ans_blocks) > 0 and ans_blocks[-1] != '..':
