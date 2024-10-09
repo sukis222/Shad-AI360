@@ -42,7 +42,7 @@ def normalize_path(path: str) -> str:
     if root:
         return '/' + '/'.join(ans_blocks)
     else:
-        if len(ans_blocks) > 0
+        if len(ans_blocks) > 0:
             return '/'.join(ans_blocks)
         else:
             return '.'
