@@ -14,27 +14,23 @@ def normalize_path(path: str) -> str:
     else:
         root = False
 
-    for i in range(len(path)-1):
+    '''for i in range(len(path)-1):
         if path[i] == '/' and path[i+1] != '/':
             sec_path.append('/')
             sec_path_str += '/'
         elif path[i] != '/':
             sec_path.append(path[i])
             sec_path_str += path[i]
-    sec_path_str += path[-1]
-    blocks = sec_path_str.split('/')
-    #print(sec_path_str)
-    #print(blocks)
-    for i in range(len(sec_path)-1):
-        if sec_path[i] == '.' and sec_path[i+1] != '.':
-            pass
-    j = 0
+            
+    sec_path_str += path[-1]'''
+    blocks = path.split('/')
+
     ans_blocks = []
     for i in range(len(blocks)):
         if blocks[i] == '..':
             if len(ans_blocks) > 0 and ans_blocks[-1] != '..':
                 ans_blocks.pop()
-            else:
+            elif not root:
                 ans_blocks.append('..')
         elif blocks[i] != '..' and blocks[i] != '.' and blocks[i] != '':
             ans_blocks.append(blocks[i])
