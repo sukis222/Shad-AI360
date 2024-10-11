@@ -1,6 +1,7 @@
 import sys
 import typing as tp
 
+
 def input_(prompt: str | None = None,
            inp: tp.IO[str] | None = None,
            out: tp.IO[str] | None = None) -> str | None:
@@ -18,9 +19,10 @@ def input_(prompt: str | None = None,
         out = sys.stdout
     if prompt is not None:
         out.write(prompt)
+        out.flush()
     if inp is not None:
-        ans = inp.read()
-        return ans if ans != '' else None
+        ans = inp.readline()
+        return ans[:-1] if ans != '' else None
     else:
         inp = sys.stdin
-        return inp.readline()
+        return inp.readline()[:-1]
