@@ -9,7 +9,7 @@ def merge(input_streams: tp.Sequence[tp.IO[bytes]], output_stream: tp.IO[bytes])
     :param output_stream: output stream. Contains byte-strings separated by "\n". Nonempty stream ends with "\n"
     :return: None
     """
-    s: tp.List[bytes] = []
+    s: tp.List[int] = []
     heapq.heapify(s)
 
     for i in range(len(input_streams)):
