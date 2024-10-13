@@ -2,7 +2,6 @@ import typing as tp
 from io import SEEK_END
 from io import BytesIO
 from pathlib import Path
-import sys
 
 
 def tail(filename: Path, lines_amount: int = 10, output: tp.IO[bytes] | None = None) -> None:
@@ -33,11 +32,3 @@ def tail(filename: Path, lines_amount: int = 10, output: tp.IO[bytes] | None = N
         output.write(ans[(ans.find(b'\n'))+1:-2])
 
         print(output.getvalue().decode())
-
-        #file.seek(ch, SEEK_END)
-        #sys.stdout.write(file.read().decode())
-
-
-
-#tail(filename='access.log', lines_amount=10)
-
