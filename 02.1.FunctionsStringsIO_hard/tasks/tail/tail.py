@@ -39,5 +39,5 @@ def tail(filename: Path, lines_amount: int = 10, output: tp.IO[bytes] | None = N
 
 
 
-tail(filename='access.log', lines_amount=10)
+#tail(filename='access.log', lines_amount=10)
 
