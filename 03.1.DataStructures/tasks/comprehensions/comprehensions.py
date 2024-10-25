@@ -32,7 +32,7 @@ def get_unique_user_ids_visited_page_after_ts(
     :param page_id: web page identifier
     :return: Unique users visited given web page after some timestamp
     """
-    return {i["PageID"] for i in records if i["EventTime"] > ts and i["UserID"] == page_id}
+    return {i["UserID"] for i in records if i["EventTime"] > ts and i["UserID"] == page_id}
 
 
 def get_events_by_device_type(
@@ -92,7 +92,7 @@ def get_record_with_none_if_key_not_in_keys(
     :param keys: keys to filter by
     :return: record with other keys replaced by None
     """
-    return {elem: r[elem] if r[elem] in keys else None for elem in r}
+    return {elem: r[elem] if elem in keys else None for elem in r}
 
 
 def get_record_with_key_in_keys(
@@ -105,7 +105,7 @@ def get_record_with_key_in_keys(
     :param keys: keys to filter by
     :return: filtered record
     """
-    return {elem: r[elem] for elem in r if r[elem] in keys}
+    return {elem: r[elem] for elem in r if elem in keys}
 
 
 def get_keys_if_key_in_keys(
@@ -118,5 +118,4 @@ def get_keys_if_key_in_keys(
     :param keys: keys to filter by
     :return: filtered keys
     """
-    return {elem for elem in r if r[elem] in keys}
-
+    return {elem for elem in r if elem in keys}
