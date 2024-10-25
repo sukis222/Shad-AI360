@@ -8,5 +8,7 @@ def get_min_to_drop(seq: tp.Sequence[tp.Any]) -> int:
     :return: number of elements need to drop to leave equal elements
     """
     cnt = Counter(seq)
-    return len(seq) - cnt.most_common()[0][1]
-
+    if len(seq) == 0:
+        return 0
+    else:
+        return len(seq) - cnt.most_common()[0][1]
