@@ -7,6 +7,7 @@ def get_unique_page_ids(records: list[tp.Mapping[str, tp.Any]]) -> set[int]:
     :param records: records of hit-log
     :return: Unique web pages
     """
+    return {i["PageID"] for i in records}
 
 
 def get_unique_page_ids_visited_after_ts(records: list[tp.Mapping[str, tp.Any]], ts: int) -> set[int]:
@@ -16,6 +17,7 @@ def get_unique_page_ids_visited_after_ts(records: list[tp.Mapping[str, tp.Any]],
     :param ts: timestamp
     :return: Unique web pages visited in hit-log after some timestamp
     """
+    return {i["PageID"] for i in records if i["EventTime"] > ts}
 
 
 def get_unique_user_ids_visited_page_after_ts(
@@ -30,6 +32,7 @@ def get_unique_user_ids_visited_page_after_ts(
     :param page_id: web page identifier
     :return: Unique users visited given web page after some timestamp
     """
+    return {i["PageID"] for i in records if i["EventTime"] > ts and i["UserID"] == page_id}
 
 
 def get_events_by_device_type(
@@ -42,6 +45,7 @@ def get_events_by_device_type(
     :param device_type: device typy name to filter by
     :return: filtered events
     """
+    return [i for i in records if i["DeviceType"] == device_type]
 
 
 DEFAULT_REGION_ID = 100500
@@ -55,6 +59,7 @@ def get_region_ids_with_none_replaces_by_default(
     :param records: records of hit-log
     :return: region ids
     """
+    return [i["RegionID"] if i["RegionID"] is not None else DEFAULT_REGION_ID for i in records]
 
 
 def get_region_id_if_not_none(
@@ -65,6 +70,7 @@ def get_region_id_if_not_none(
     :param records: records of hit-log
     :return: region ids
     """
+    return [i["RegionID"] for i in records if i["RegionID"] is not None]
 
 
 def get_keys_where_value_is_not_none(r: tp.Mapping[str, tp.Any]) -> list[str]:
@@ -73,6 +79,7 @@ def get_keys_where_value_is_not_none(r: tp.Mapping[str, tp.Any]) -> list[str]:
     :param r: record of hit-log
     :return: keys where values are defined
     """
+    return [i for i in r if r[i] is not None]
 
 
 def get_record_with_none_if_key_not_in_keys(
@@ -85,6 +92,7 @@ def get_record_with_none_if_key_not_in_keys(
     :param keys: keys to filter by
     :return: record with other keys replaced by None
     """
+    return {elem: r[elem] if r[elem] in keys else None for elem in r}
 
 
 def get_record_with_key_in_keys(
@@ -97,6 +105,7 @@ def get_record_with_key_in_keys(
     :param keys: keys to filter by
     :return: filtered record
     """
+    return {elem: r[elem] for elem in r if r[elem] in keys}
 
 
 def get_keys_if_key_in_keys(
@@ -109,3 +118,5 @@ def get_keys_if_key_in_keys(
     :param keys: keys to filter by
     :return: filtered keys
     """
+    return {elem for elem in r if r[elem] in keys}
+
