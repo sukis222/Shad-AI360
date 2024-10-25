@@ -32,7 +32,7 @@ def get_unique_user_ids_visited_page_after_ts(
     :param page_id: web page identifier
     :return: Unique users visited given web page after some timestamp
     """
-    return {i["UserID"] for i in records if i["EventTime"] > ts and i["UserID"] == page_id}
+    return {i["UserID"] for i in records if i["EventTime"] > ts and i["PageID"] == page_id}
 
 
 def get_events_by_device_type(
