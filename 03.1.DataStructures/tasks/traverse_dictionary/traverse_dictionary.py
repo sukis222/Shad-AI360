@@ -48,7 +48,7 @@ def traverse_dictionary_iterative(
     :return: list with pairs: (full key from root to leaf joined by ".", value)
     """
     tmp = [(key, dct[key]) for key in dct]
-    ans = []
+    ans: tp.List[tuple[str, int]] = []
     elem = tmp.pop()
     while True:
         if isinstance(elem[1], dict):
@@ -62,5 +62,5 @@ def traverse_dictionary_iterative(
         if len(tmp) == 0:
             break
         elem = tmp.pop()
-
     return ans
+
