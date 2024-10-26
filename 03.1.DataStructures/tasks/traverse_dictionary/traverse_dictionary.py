@@ -47,7 +47,8 @@ def traverse_dictionary_iterative(
     :param dct: dictionary of undefined depth with integers or other dicts as leaves with same properties
     :return: list with pairs: (full key from root to leaf joined by ".", value)
     """
-    tmp = [(key, dct[key]) for key in dct]
+
+    tmp: tp.List[tp.Any] = [(key, dct[key]) for key in dct]
     ans: tp.List[tuple[str, int]] = []
     elem = tmp.pop()
     while True:
