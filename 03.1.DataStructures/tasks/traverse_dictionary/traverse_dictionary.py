@@ -11,7 +11,7 @@ def traverse_dictionary_immutable(
     """
     ans = []
     for elem in dct:
-        if type(dct[elem]) is not dict:
+        if not isinstance(dct[elem], dict):
             ans.append((elem, dct[elem]))
         else:
             micro_ans = traverse_dictionary_immutable(dct[elem])
@@ -32,7 +32,7 @@ def traverse_dictionary_mutable(
     :return: None
     """
     for elem in dct:
-        if type(dct[elem]) is not dict:
+        if not isinstance(dct[elem], dict):
             result.append((elem, dct[elem]))
         else:
             micro_ans = traverse_dictionary_immutable(dct[elem])
@@ -49,7 +49,7 @@ def traverse_dictionary_iterative(
     """
     ans = []
     for elem in dct:
-        if type(dct[elem]) is not dict:
+        if not isinstance(dct[elem], dict):
             ans.append((elem, dct[elem]))
         else:
             micro_ans = traverse_dictionary_immutable(dct[elem])
