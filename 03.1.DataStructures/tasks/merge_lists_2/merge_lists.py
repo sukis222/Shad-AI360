@@ -6,7 +6,7 @@ def merge(seq: tp.Sequence[tp.Sequence[int]]) -> list[int]:
     :param seq: sequence of sorted sequences
     :return: merged sorted list
     """
-    my_heap = []
+    my_heap: tp.List[int] = []
     ans = []
     for i in seq:
         for j in i:
@@ -16,7 +16,3 @@ def merge(seq: tp.Sequence[tp.Sequence[int]]) -> list[int]:
         ans.append(heapq.heappop(my_heap))
 
     return ans
-
-
-
-
