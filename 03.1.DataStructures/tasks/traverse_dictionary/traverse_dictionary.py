@@ -1,5 +1,6 @@
 import typing as tp
-
+from sys import setrecursionlimit
+setrecursionlimit(10000000)
 
 def traverse_dictionary_immutable(
         dct: tp.Mapping[str, tp.Any],
@@ -47,21 +48,12 @@ def traverse_dictionary_iterative(
     :param dct: dictionary of undefined depth with integers or other dicts as leaves with same properties
     :return: list with pairs: (full key from root to leaf joined by ".", value)
     """
-
-    tmp: tp.List[tp.Any] = [(key, dct[key]) for key in dct]
-    ans: tp.List[tuple[str, int]] = []
-    elem = tmp.pop()
-    while True:
-        if isinstance(elem[1], dict):
-            for obj in elem[1]:
-                if isinstance(elem[1][obj], dict):
-                    tmp.append((f'{elem[0]}.{obj}', elem[1][obj]))
-                else:
-                    ans.append((f'{elem[0]}.{obj}', elem[1][obj]))
+    ans = []
+    for elem in dct:
+        if not isinstance(dct[elem], dict):
+            ans.append((elem, dct[elem]))
         else:
-            ans.append(elem)
-        if len(tmp) == 0:
-            break
-        elem = tmp.pop()
+            micro_ans = traverse_dictionary_immutable(dct[elem])
+            for el in micro_ans:
+                ans.append((f'{elem}.{el[0]}', el[1]))
     return ans
-
