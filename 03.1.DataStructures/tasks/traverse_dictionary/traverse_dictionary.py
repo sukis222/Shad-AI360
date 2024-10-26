@@ -9,6 +9,16 @@ def traverse_dictionary_immutable(
     :param prefix: prefix for key used for passing total path through recursion
     :return: list with pairs: (full key from root to leaf joined by ".", value)
     """
+    ans = []
+    for elem in dct:
+        if type(dct[elem]) is not dict:
+            ans.append((elem, dct[elem]))
+        else:
+            micro_ans = traverse_dictionary_immutable(dct[elem])
+            for el in micro_ans:
+                ans.append((f'{elem}.{el[0]}', el[1]))
+    return ans
+
 
 
 def traverse_dictionary_mutable(
@@ -21,6 +31,13 @@ def traverse_dictionary_mutable(
     :param prefix: prefix for key used for passing total path through recursion
     :return: None
     """
+    for elem in dct:
+        if type(dct[elem]) is not dict:
+            result.append((elem, dct[elem]))
+        else:
+            micro_ans = traverse_dictionary_immutable(dct[elem])
+            for el in micro_ans:
+                result.append((f'{elem}.{el[0]}', el[1]))
 
 
 def traverse_dictionary_iterative(
@@ -30,3 +47,13 @@ def traverse_dictionary_iterative(
     :param dct: dictionary of undefined depth with integers or other dicts as leaves with same properties
     :return: list with pairs: (full key from root to leaf joined by ".", value)
     """
+    ans = []
+    for elem in dct:
+        if type(dct[elem]) is not dict:
+            ans.append((elem, dct[elem]))
+        else:
+            micro_ans = traverse_dictionary_immutable(dct[elem])
+            for el in micro_ans:
+                ans.append((f'{elem}.{el[0]}', el[1]))
+    return ans
+
