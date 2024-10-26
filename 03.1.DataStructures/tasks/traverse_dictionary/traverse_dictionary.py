@@ -47,39 +47,20 @@ def traverse_dictionary_iterative(
     :param dct: dictionary of undefined depth with integers or other dicts as leaves with same properties
     :return: list with pairs: (full key from root to leaf joined by ".", value)
     """
-    for key, value in dct.items():
-        if isinstance(value, dict):
-            yield from traverse_dictionary(value)
+    tmp = [(key, dct[key]) for key in dct]
+    ans = []
+    elem = tmp.pop()
+    while True:
+        if isinstance(elem[1], dict):
+            for obj in elem[1]:
+                if isinstance(elem[1][obj], dict):
+                    tmp.append((f'{elem[0]}.{obj}', elem[1][obj]))
+                else:
+                    ans.append((f'{elem[0]}.{obj}', elem[1][obj]))
         else:
-            yield key, value
+            ans.append(elem)
+        if len(tmp) == 0:
+            break
+        elem = tmp.pop()
 
-
-h = {"a": {"b": {"c": {"d": {"e": 1}}}}}
-f = h
-s = iter({"a": {"b": {"c": {"d": {"e": 1}}}}})
-
-
-
-my_dict = {
-    'key1': {'sub_key1': [1, 2, 3], 'sub_key2': [4, 5, 6]},
-    'key2': {'sub_key3': [7, 8, 9], 'sub_key4': [10, 11, 12]},
-    'deeper_level': {
-        'sub_sub_key1': [{'inner_key': 'value'}, {'inner_key2': 'value2'}],
-        'sub_sub_key2': ['a', 'b', 'c']
-    }
-}
-
-# Функция для обхода словаря любой глубины
-def traverse_dictionary(dictionary):
-    for key, value in dictionary.items():
-        if isinstance(value, dict):
-            yield from traverse_dictionary(value)
-        else:
-            yield key, value
-
-# Проходимся по всем элементам словаря
-for element in traverse_dictionary(my_dict):
-    print(element)
-
-
-
+    return ans
