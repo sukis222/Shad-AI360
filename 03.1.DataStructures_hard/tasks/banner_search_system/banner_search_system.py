@@ -39,7 +39,7 @@ def get_words(
 
     if sch > 3:
         ans.append(str_for_work[len(str_for_work) - sch: len(str_for_work)])
-    return ans
+    return [i for i in ans]
 
 
 def build_index(
@@ -56,7 +56,8 @@ def build_index(
         for elem in mini_list:
             if len(ans[elem]) > 0 and ans[elem][-1] != num or len(ans[elem]) == 0:
                 ans[elem].append(num)
-    return dict(ans)
+    ans: dict[str, list[int]] = dict(ans)
+    return ans
 
 
 def get_banner_indices_by_query(
@@ -71,6 +72,8 @@ def get_banner_indices_by_query(
     """
     a = []
     heapq.heapify(a)
+    heapq.heappush(a, 1)
+    heapq.heappop(a)
     norm_str = get_words(normalize(query))
     ans: list[int] = []
     for elem in norm_str:
@@ -79,8 +82,10 @@ def get_banner_indices_by_query(
                 heapq.heappush(a, sss)
     a.sort()
     sch = 1
+
     if len(norm_str) == 1:
         return a
+
     for i in range(1, len(a)):
         if a[i] == a[i-1]:
             sch += 1
