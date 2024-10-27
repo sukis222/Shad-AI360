@@ -23,7 +23,7 @@ def extract_alphabet(
     ans = []
 
 
-    def dfs(ver):
+    def dfs(ver: str):
         for elems in graph[ver]:
             if elems not in done:
                 dfs(elems)
@@ -37,18 +37,6 @@ def extract_alphabet(
 
     return ans[::-1]
 
-'''d_f.append(elem)
-            first_elem = elem
-            while len(d_f) != 0:
-                for new_elem in graph[first_elem]:
-                    d_f.append(new_elem)
-                if graph[first_elem] == {}:
-                    done.add(first_elem)
-                done.add(first_elem)
-                first_elem = d_f.popleft()
-                ans.append(first_elem)
-'''
-
 
 def build_graph(
         words: list[str]
@@ -58,7 +46,9 @@ def build_graph(
     :param words: ordered words
     :return: graph
     """
-    graph = {}
+    graph = dict()
+    if len(words) == 0:
+        return graph
     for elem in words[0]:
         graph.setdefault(elem, set())
     for i in range(1, len(words)):
@@ -91,5 +81,4 @@ def get_alphabet(
     return extract_alphabet(graph)
 
 #########################
-
 
