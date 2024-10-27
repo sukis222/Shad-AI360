@@ -23,7 +23,9 @@ def extract_alphabet(
     ans = []
 
 
-    def dfs(ver: str):
+    def dfs(
+            ver: str
+            ) -> None:
         for elems in graph[ver]:
             if elems not in done:
                 dfs(elems)
@@ -46,7 +48,7 @@ def build_graph(
     :param words: ordered words
     :return: graph
     """
-    graph = dict()
+    graph: dict[str, set[str]] = dict()
     if len(words) == 0:
         return graph
     for elem in words[0]:
