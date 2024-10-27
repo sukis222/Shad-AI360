@@ -50,7 +50,7 @@ def build_index(
     :param banners: list of banners for indexation
     :return: mapping from word to banners ids
     """
-    ans: defaultdict[list] = defaultdict(list)
+    ans: defaultdict[str, list[int]] = defaultdict(list)
     for num in range(len(banners)):
         mini_list = get_words(normalize(banners[num]))
         for elem in mini_list:
