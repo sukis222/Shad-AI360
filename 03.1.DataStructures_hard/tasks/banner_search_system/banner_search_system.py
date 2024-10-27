@@ -50,14 +50,14 @@ def build_index(
     :param banners: list of banners for indexation
     :return: mapping from word to banners ids
     """
-    ans = defaultdict(list)
+    ans: defaultdict[list] = defaultdict(list)
     for num in range(len(banners)):
         mini_list = get_words(normalize(banners[num]))
         for elem in mini_list:
             if len(ans[elem]) > 0 and ans[elem][-1] != num or len(ans[elem]) == 0:
                 ans[elem].append(num)
-    ans: dict[str, list[int]] = dict(ans)
-    return ans
+    anse: dict[str, list[int]] = dict(ans)
+    return anse
 
 
 def get_banner_indices_by_query(
@@ -70,7 +70,7 @@ def get_banner_indices_by_query(
     :param index: index to search banners
     :return: list of indices of suitable banners
     """
-    a = []
+    a: list[int] = []
     heapq.heapify(a)
     heapq.heappush(a, 1)
     heapq.heappop(a)
