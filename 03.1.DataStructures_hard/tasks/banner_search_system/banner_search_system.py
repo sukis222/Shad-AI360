@@ -32,11 +32,13 @@ def get_words(
     for i in range(len(str_for_work)):
         if str_for_work[i] == ' ':
             if sch > 3:
-                ans.append(str_for_work[i-sch:i])
+                ans.append(str_for_work[i-sch : i])
             sch = 0
         else:
             sch += 1
 
+    if sch > 3:
+        ans.append(str_for_work[len(str_for_work) - sch: len(str_for_work)])
     return ans
 
 
@@ -114,4 +116,5 @@ def get_banners(
 
 #########################
 
-
+#print(get_words("Стиральный машина - Более 1000 модель!"))
+#print(build_index(["Стиральный машина - Более 1000 модель!"]))
