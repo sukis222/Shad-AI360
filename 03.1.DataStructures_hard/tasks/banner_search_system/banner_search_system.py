@@ -1,3 +1,7 @@
+import re
+from curses.ascii import isalpha
+
+
 def normalize(
         text: str
         ) -> str:
@@ -6,6 +10,16 @@ def normalize(
     :param text: text to normalize
     :return: normalized query
     """
+
+    ans = ''
+    for elem in text:
+        if elem.isalpha():
+            ans += elem
+    print(str(ans))
+
+
+    return ans
+
 
 
 def get_words(
@@ -26,6 +40,7 @@ def build_index(
     :param banners: list of banners for indexation
     :return: mapping from word to banners ids
     """
+
 
 
 def get_banner_indices_by_query(
@@ -60,3 +75,8 @@ def get_banners(
     return [banners[i] for i in indices]
 
 #########################
+
+
+
+print(normalize("Джинсы со скидка 600р"))
+print(get_words('   kjijji i ii ji jij ji ji ji ji   '))
