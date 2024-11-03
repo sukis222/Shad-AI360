@@ -1,10 +1,7 @@
 from dataclasses import dataclass
-from email.quoprimime import decode
 from enum import Enum
 from pathlib import Path
 import  zlib
-
-from pyarrow.hdfs import connect
 
 
 class BlobType(Enum):
@@ -156,8 +153,6 @@ def search_file(blobs: dict[str, Blob], tree_root: Blob, filename: str) -> Blob:
     :param filename: requested file
     :return: requested file blob
     """
-    content = tree_root.content
-    #print(tree_root.type_)
     if tree_root.type_ == BlobType.TREE:
         tree = parse_tree(blobs, tree_root)
         #print(tree.children.keys())
@@ -171,8 +166,6 @@ def search_file(blobs: dict[str, Blob], tree_root: Blob, filename: str) -> Blob:
                 #print(each_tree, filename)
                 if search_file(blobs, tree.children[each_tree], filename) is not None:
                     return search_file(blobs, tree.children[each_tree], filename)
-    else:
-        pass
 
 
 '''
