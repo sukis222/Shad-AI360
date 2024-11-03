@@ -164,8 +164,11 @@ def search_file(blobs: dict[str, Blob], tree_root: Blob, filename: str) -> Blob:
         else:
             for each_tree in tree.children:
                 #print(each_tree, filename)
-                if search_file(blobs, tree.children[each_tree], filename) is not None:
+                if search_file(blobs, tree.children[each_tree], filename) is not tree_root:
                     return search_file(blobs, tree.children[each_tree], filename)
+
+    else:
+        return tree_root
 
 
 '''
