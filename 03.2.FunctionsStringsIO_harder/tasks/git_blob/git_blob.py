@@ -63,8 +63,6 @@ def read_blob(path: Path) -> Blob:
         return blob
 
 
-
-
 def traverse_objects(obj_dir: Path) -> dict[str, Blob]:
     """
     Traverse directory with git objects and load them
@@ -175,7 +173,6 @@ def search_file(blobs: dict[str, Blob], tree_root: Blob, filename: str) -> Blob:
                     return search_file(blobs, tree.children[each_tree], filename)
     else:
         pass
-
 
 
 '''
