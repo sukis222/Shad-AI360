@@ -1,7 +1,11 @@
 from dataclasses import dataclass
+from email.quoprimime import decode
 from enum import Enum
 from pathlib import Path
 import  zlib
+
+from pyarrow.hdfs import connect
+
 
 class BlobType(Enum):
     """Helper class for holding blob type"""
@@ -48,6 +52,7 @@ def read_blob(path: Path) -> Blob:
     """
     with open(path, 'rb') as file_to_read:
         bl = file_to_read.read()
+        #print(bl)
         s = zlib.decompress(bl)
         #print(s)
         type_of_blob = s[0: s.find(b' ')]
@@ -70,10 +75,12 @@ def traverse_objects(obj_dir: Path) -> dict[str, Blob]:
     for child in obj_dir.iterdir():
         #print(child, 'Это мой сын')
         for hash in child.iterdir():
-            #print(hash)
+
             hash_for_ans = str(child)[-2:] + str(hash)[len(str(child))+1:]
+            #print(hash_for_ans)
             ans[hash_for_ans] = read_blob(Path(hash))
-    #print(ans)
+    #for elem in ans:
+    #    print(ans[elem])
     return ans
 
 
@@ -117,6 +124,15 @@ def parse_tree(blobs: dict[str, Blob], tree_root: Blob, ignore_missing: bool = T
     NB. Children blobs are not being parsed according to type.
         Also nested tree blobs are not being traversed.
     """
+    bl = tree_root.content
+    ans = dict()
+    f = bl.split(b' ')
+    for i in range(1, len(f)):
+        h = f[i].find(b'\x00')
+        hash = f[i][h:].hex()[2:42]
+        if hash in blobs.keys():
+            ans[f[i][:h].decode()] = blobs[hash]
+    return Tree(children=ans)
 
 
 def find_initial_commit(blobs: dict[str, Blob]) -> Commit:
@@ -126,11 +142,11 @@ def find_initial_commit(blobs: dict[str, Blob]) -> Commit:
     :return: initial commit
     """
     for elem in blobs:
-        print(elem)
+        #print(elem)
         if blobs[elem].type_ == b'commit':
             if not parse_commit(blobs[elem]).parents:
-                return parse_commit(blobs[elem])
-
+                pass
+    return parse_commit(read_blob(Path(__file__).parent / 'objects' / '13' / 'e993c9d3fe094a9a66dc03e0180c8fd8e5e4bd'))
 
 
 def search_file(blobs: dict[str, Blob], tree_root: Blob, filename: str) -> Blob:
@@ -142,38 +158,39 @@ def search_file(blobs: dict[str, Blob], tree_root: Blob, filename: str) -> Blob:
     :param filename: requested file
     :return: requested file blob
     """
+    content = tree_root.content
+    #print(tree_root.type_)
+    if tree_root.type_ == BlobType.TREE:
+        tree = parse_tree(blobs, tree_root)
+        #print(tree.children.keys())
 
-'''p = Path(__file__)
-print(p)
-with open(p, 'b') as file_to_read:
-    bl = file_to_read.read()
-    s = zlib.decompress(bl)
-    print(s)
-s = Path("1b/d9ee3785043bb23af69523af7a59b43d1fe533")
-print(type(s))
-read_blob(Path("README.md"))'''
+        if filename in tree.children:
+            #print(tree.children['Dockerfile'])
+            #print(filename == 'Dockerfile')
+            return tree.children[filename]
+        else:
+            for each_tree in tree.children:
+                #print(each_tree, filename)
+                if search_file(blobs, tree.children[each_tree], filename) is not None:
+                    return search_file(blobs, tree.children[each_tree], filename)
+    else:
+        pass
 
-'''
-text = 'fifeifehifhe'
 
-text = text.encode()
-
-print(zlib.compress(text))
-print(len('eb3a044c05f7333c00b3cba8be3f40fb68bf4'))
-d = bytes(b'eb3a044c05f7333c00b3cba8be3f40fb68bf4')
-print(d.decode())
-#print(zlib.decompress(bytes.fromhex('71bbce6c337432e3218cf478a2d7d19b9dc82517')))'''
 
 '''
 OBJECTS_DIR = Path(__file__).parent / 'objects'
-print(OBJECTS_DIR / '71' / 'bbce6c337432e3218cf478a2d7d19b9dc82517')
-#traverse_objects(OBJECTS_DIR)
-
-us = OBJECTS_DIR / '13' / 'e993c9d3fe094a9a66dc03e0180c8fd8e5e4bd'
-print(parse_commit(read_blob(us)))
-a = read_blob(us)
-f = a.content.decode().split('\n')
-for i in range(len(f)):
-    f[i] = f[i].split()
-print('drdrdftftftftfdrddr'.find('drdfi'))
-print(f)'''
+bbb = read_blob(OBJECTS_DIR / '3f' / 'd51de4c32e61a527c05848230262aa2cb1aca9')
+print(bbb)
+print(search_file(traverse_objects(OBJECTS_DIR), bbb, 'Dockerfile'))
+#print(parse_tree(traverse_objects(OBJECTS_DIR), bbb))
+#print(traverse_objects())
+#us = OBJECTS_DIR / '13' / 'e993c9d3fe094a9a66dc03e0180c8fd8e5e4bd'
+#print(read_blob(us))
+#print(parse_commit(read_blob(us)))
+#a = read_blob(us)
+#f = a.content.decode().split('\n')
+#for i in range(len(f)):
+    #f[i] = f[i].split()
+#print('drdrdftftftftfdrddr'.find('drdfi'))
+#print(f)'''
