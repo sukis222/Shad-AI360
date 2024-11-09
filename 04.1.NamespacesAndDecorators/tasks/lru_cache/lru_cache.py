@@ -11,7 +11,7 @@ T = TypeVar('T')
 Function = TypeVar('Function', bound=Callable[..., Any])
 
 
-def cache(max_size: int) -> Callable[[Function], Function]:
+def cache(max_size: int) -> Callable[P, T]:
     """
     Returns decorator, which stores result of function
     for `max_size` most recent function arguments.
