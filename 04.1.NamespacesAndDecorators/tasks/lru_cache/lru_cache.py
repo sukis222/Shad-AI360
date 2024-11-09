@@ -11,7 +11,7 @@ T = TypeVar('T')
 Function = TypeVar('Function', bound=Callable[..., Any])
 
 
-def cache(max_size: int) -> Callable[P, T]:
+def cache(max_size: int) -> Callable[[Function], Function]:
     """
     Returns decorator, which stores result of function
     for `max_size` most recent function arguments.
@@ -19,7 +19,7 @@ def cache(max_size: int) -> Callable[P, T]:
     :return: decorator, which wraps any function passed
     """
     cache_of_obj: OrderedDict[str, Any] = OrderedDict()
-    def decor(func: Callable[P, T]) -> Callable[P, T]:
+    def decor(func: Callable[P, T]) -> Function:
         @wraps(func)
         def wrapper(*args: P.args, **kwacks: P.kwargs) -> T:
             if cache_of_obj.get(str(args) + str(kwacks)) is None:
