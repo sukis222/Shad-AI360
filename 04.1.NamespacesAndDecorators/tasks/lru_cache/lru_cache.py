@@ -14,12 +14,11 @@ def cache(max_size: int) -> Callable[[Function], Function]:
     :param max_size: max amount of unique arguments to store values for
     :return: decorator, which wraps any function passed
     """
-    cache_of_obj: OrderedDict = OrderedDict()
-    def decor(func) -> Any:
+    cache_of_obj: OrderedDict[str, Any] = OrderedDict()
+    def decor(func) -> Function:
         @wraps(func)
-        def wrapper(*args, **kwacks) -> Any:
+        def wrapper(*args, **kwacks) -> Function:
             if cache_of_obj.get(str(args) + str(kwacks)) is None:
-                #print(cache_of_obj, len(cache_of_obj))
                 while len(cache_of_obj) >= max_size:
                     for elem in cache_of_obj:
                         cache_of_obj.pop(elem)
