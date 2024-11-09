@@ -15,7 +15,7 @@ def cache(max_size: int) -> Callable[[Function], Function]:
     :return: decorator, which wraps any function passed
     """
     cache_of_obj: OrderedDict[str, Any] = OrderedDict()
-    def decor(func) -> Any:
+    def decor(func) -> Callable[[Any], Any]:
         @wraps(func)
         def wrapper(*args, **kwacks):
             if cache_of_obj.get(str(args) + str(kwacks)) is None:
@@ -28,13 +28,14 @@ def cache(max_size: int) -> Callable[[Function], Function]:
                 return cache_of_obj[str(args) + str(kwacks)]
             else:
                 return cache_of_obj[str(args) +  str(kwacks)]
+        print(type(wrapper))
         return wrapper
 
     return decor
 
 
 
-'''@cache(7)
+@cache(7)
 def binomial(n: int, k: int) -> int:
     if k > n:
         return 0
@@ -43,5 +44,5 @@ def binomial(n: int, k: int) -> int:
     return binomial(n - 1, k) + binomial(n - 1, k - 1)
 
 binomial(8, 4)
-print(help(binomial))'''
+print(help(binomial))
 
