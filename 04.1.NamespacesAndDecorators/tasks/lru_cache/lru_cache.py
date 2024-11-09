@@ -15,9 +15,9 @@ def cache(max_size: int) -> Callable[[Function], Function]:
     :return: decorator, which wraps any function passed
     """
     cache_of_obj: OrderedDict[str, Any] = OrderedDict()
-    def decor(func) -> Callable[[Function], Function]:
+    def decor(func) -> Any:
         @wraps(func)
-        def wrapper(*args, **kwacks) -> Callable[[Function], Function]:
+        def wrapper(*args, **kwacks):
             if cache_of_obj.get(str(args) + str(kwacks)) is None:
                 while len(cache_of_obj) >= max_size:
                     for elem in cache_of_obj:
