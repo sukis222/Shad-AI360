@@ -1,3 +1,7 @@
+import datetime
+
+print(help(datetime))
+
 def profiler(func):  # type: ignore
     """
     Returns profiling decorator, which counts calls of function
@@ -6,3 +10,9 @@ def profiler(func):  # type: ignore
     :param func: function to decorate
     :return: decorator, which wraps any function passed
     """
+
+    def wrapper(gl=0):
+
+        return func
+
+    return wrapper
