@@ -15,7 +15,7 @@ def profiler(func):# type: ignore
 
 
     @wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs):# type: ignore
         if wrapper.calls == 542:
             wrapper.calls = 0
             profiler.flag = False
