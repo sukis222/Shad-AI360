@@ -13,7 +13,7 @@ class LifeGame(object):
                 self.ocean[i + 1][j + 1] = lst[i][j]
 
 
-    def get_next_generation(self):
+    def get_next_generation(self) -> list:
 
         new_one = [[self.ocean[j][i] for i in range(len(self.ocean[j]))] for j in range(len(self.ocean))]
         hills = [[0 for i in range(len(self.ocean[0]))] for j in range(len(self.ocean))]
@@ -53,6 +53,7 @@ class LifeGame(object):
 
         self.ocean = new_one
         return [[self.ocean[j][i] for i in range(1, len(self.ocean[j]) - 1)] for j in range(1, len(self.ocean) - 1)]
-    def __fcs(self):
+
+    def __fcs(self) -> None:
         pass
 
