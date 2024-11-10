@@ -6,14 +6,14 @@ class LifeGame(object):
     Class for Game life
     """
 
-    def __init__(self, lst):
+    def __init__(self, lst) -> None:
         self.ocean = [[0 for i in range(len(lst[0]) + 2)] for j in range(len(lst) + 2)]
         for i in range(len(lst)):
             for j in range(len(lst[0])):
                 self.ocean[i + 1][j + 1] = lst[i][j]
 
 
-    def get_next_generation(self) -> list:
+    def get_next_generation(self) -> list[list[int]]:
 
         new_one = [[self.ocean[j][i] for i in range(len(self.ocean[j]))] for j in range(len(self.ocean))]
         hills = [[0 for i in range(len(self.ocean[0]))] for j in range(len(self.ocean))]
