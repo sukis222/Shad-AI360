@@ -1,12 +1,9 @@
-from types import FunctionType
-
-
 class LifeGame(object):
     """
     Class for Game life
     """
 
-    def __init__(self, lst) -> None:
+    def __init__(self, lst: list[list[int]]) -> None:
         self.ocean = [[0 for i in range(len(lst[0]) + 2)] for j in range(len(lst) + 2)]
         for i in range(len(lst)):
             for j in range(len(lst[0])):
