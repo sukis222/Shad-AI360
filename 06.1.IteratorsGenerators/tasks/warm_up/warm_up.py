@@ -16,7 +16,7 @@ def uniq(sequence: list[Any]) -> Generator[Any, None, None]:
     :return: generator of elements of `sequence` in
     the same order without duplicates
     """
-    lll = []
+    lll:list[Any] = []
     for i in range(len(sequence)):
         if sequence.count(sequence[i]) > 1:
             if lll.count(sequence[i]) == 0:
