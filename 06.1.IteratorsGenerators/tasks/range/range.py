@@ -19,8 +19,6 @@ class RangeIterator(Iterator[int]):
             raise StopIteration()
 
 
-
-
 class Range(Sized, Iterable[int]):
     """The range-like type, which represents an immutable sequence of numbers"""
 
