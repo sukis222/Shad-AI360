@@ -8,10 +8,10 @@ def flat_it(sequence: Iterable[Any]) -> Iterator[Any]:
     :return: generator producing flatten sequence
     """
     for elem in sequence:
-        if hasattr(elem, '__iter__') and type(elem) != str:
+        if hasattr(elem, '__iter__') and not isinstance(elem, str):
             for num in flat_it(elem):
                 yield num
-        elif type(elem) == str:
+        elif isinstance(elem, str):
             for let in elem:
                 yield let
         else:
