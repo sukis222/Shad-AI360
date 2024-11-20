@@ -114,14 +114,16 @@ class Scheduler:
         :param ticks: number of iterations (task steps), infinite if not passed
         """
         self.flag = False
-        self.ticks: int | None = ticks
+        self.ticks: int = ticks
 
         if ticks is None:
             self.flag = True
             self.ticks = 0
+        else:
+            self.ticks = ticks
 
         i = 0
-        while (self.flag or ticks > i) and self.task_queue and self.task_map:
+        while (self.flag or self.ticks > i) and self.task_queue and self.task_map:
             task_to_execute = self.task_queue.get()
             #print(self.task_map)
             if task_to_execute.task_id in self.task_map:
