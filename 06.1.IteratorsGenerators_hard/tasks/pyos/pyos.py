@@ -29,7 +29,7 @@ class Task:
         self.task_id = task_id
         self.ans: SystemCall | None = None
         self.wait = False
-        self.result = None
+        self.result: Any = None
 
 
     def set_syscall_result(self, result: Any) -> None:
@@ -52,14 +52,13 @@ class Scheduler:
     """Scheduler to manipulate with tasks"""
 
     def __init__(self) -> None:
-        self.flag = None
-        self.task_id = 0
+        self.flag: bool = True
+        self.task_id: int = 0
         self.task_queue: Queue[Task] = Queue()
         self.task_map: dict[int, Task] = {}  # task_id -> task
         self.wait_map: dict[int, list[Task]] = {}  # task_id -> list of waiting tasks
         self.idi = 0
-        self.search = None
-        self.i = None
+
 
     def _schedule_task(self, task: Task) -> None:
         """
@@ -114,7 +113,7 @@ class Scheduler:
         handles them and reschedules task if needed
         :param ticks: number of iterations (task steps), infinite if not passed
         """
-        self.flag: bool = False
+        self.flag = False
         self.ticks: int | None = ticks
 
         if ticks is None:
@@ -146,7 +145,7 @@ class Scheduler:
                             if yielded_call.task_id not in self.task_map:
                                 task_to_execute.result = False
                             else:
-                                self.wait_map[yielded_call.task_id] = []
+                                self.wait_map[yielded_call.task_id] = [task_to_execute]
 
                         self.task_queue.put(task_to_execute)
 
