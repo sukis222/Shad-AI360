@@ -27,7 +27,7 @@ class Task:
         """
         self.target = target
         self.task_id = task_id
-        self.ans = None
+        self.ans: SystemCall | None = None
         self.wait = False
         self.result = None
 
@@ -114,8 +114,8 @@ class Scheduler:
         handles them and reschedules task if needed
         :param ticks: number of iterations (task steps), infinite if not passed
         """
-        self.flag = False
-        self.ticks = ticks
+        self.flag: bool = False
+        self.ticks: int | None = ticks
 
         if ticks is None:
             self.flag = True
