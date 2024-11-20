@@ -114,7 +114,6 @@ class Scheduler:
         :param ticks: number of iterations (task steps), infinite if not passed
         """
         self.flag = False
-        self.ticks: int = ticks
 
         if ticks is None:
             self.flag = True
