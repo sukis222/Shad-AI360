@@ -2,7 +2,7 @@ import struct
 from datetime import datetime, timezone
 
 
-def make_key(data, i):
+def make_key(data, i) -> tuple:
     i += 1
     list_for_key = []
     while  i < len(data) and data[i] != 0:
@@ -11,23 +11,23 @@ def make_key(data, i):
     i += 1
     return bytes(list_for_key).decode(), i
 
-def Binary(elem):
+def Binary(elem) -> bytes:
     return Int32(elem[:-1]) + bytes([0]) + elem
 
-def Int32(elem):
+def Int32(elem) -> bytes:
     return struct.pack('i', len(elem) + 1)
 
-def Document(e_list):
+def Document(e_list) -> bytes:
     return struct.pack('i', len(e_list) + 5) + e_list + bytes([0])
 
-def E_list(data):
+def E_list(data) -> bytes:
     e_list = b''
     for key in data:
         elem = data[key]
         e_list += Element(key, elem)
     return e_list
 
-def UnE_list(data, new_data):
+def UnE_list(data, new_data) -> None:
     i = 0
     while i < len(data):
         bt = data[i]
@@ -113,7 +113,7 @@ def UnE_list(data, new_data):
             new_data[key] = value
 
 
-def Element(key, elem):
+def Element(key, elem) -> bytes:
     e_name = Cstring(key)
     if isinstance(elem, str):
         return bytes([2]) + e_name + String(elem)
@@ -144,16 +144,16 @@ def Element(key, elem):
         return bytes([6]) + e_name
 
 
-def String(elem):
+def String(elem) -> bytes:
     return Int32(elem) + elem.encode() + bytes([0])
 
 
 
-def Cstring(elem):
+def Cstring(elem) -> bytes:
     return elem.encode() + bytes([0])
 
 
-def marshal(data):
+def marshal(data) -> bytes:
     # Сортируем data по ключам и присваиваем к data
     lst = []
     new_data = {}
@@ -172,14 +172,14 @@ def marshal(data):
     return Document(e_list)
 
 
-def unmarshal(data):
+def unmarshal(data) -> dict:
     data = list(data)
     new_data = {}
     full_len = len(data)
     UnE_list(data[4:-1], new_data)
     return new_data
 
-
+'''
 #print(struct.unpack('=B', b'1'))
 g = {"вася": float('0.0'),
     "vasya": float('-0.0'),
@@ -192,4 +192,4 @@ print(list(d))
 print(datetime(1970, 1, 1, tzinfo=timezone.utc))
 #print(bytes([3, 87]))
 print(unmarshal(d))
-#print(f.marshal(d))
+#print(f.marshal(d))'''
