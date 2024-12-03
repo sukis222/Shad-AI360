@@ -20,14 +20,14 @@ def Int32(elem: Any) -> bytes:
 def Document(e_list: bytes) -> bytes:
     return struct.pack('i', len(e_list) + 5) + e_list + bytes([0])
 
-def E_list(data: Dict[str, Any]) -> bytes:
+def E_list(data: Dict[Any, Any]) -> bytes:
     e_list = b''
     for key in data:
         elem = data[key]
         e_list += Element(key, elem)
     return e_list
 
-def UnE_list(data: list[int], new_data: Dict[str, Any]) -> None:
+def UnE_list(data: list[int], new_data: Dict[Any, Any]) -> None:
     i = 0
     while i < len(data):
         bt = data[i]
@@ -152,7 +152,7 @@ def Cstring(elem: str) -> bytes:
     return elem.encode() + bytes([0])
 
 
-def marshal(data: Dict[str, Any]) -> bytes:
+def marshal(data: Dict[Any, Any]) -> bytes:
     # Сортируем data по ключам и присваиваем к data
     lst = []
     new_data = {}
@@ -171,7 +171,7 @@ def marshal(data: Dict[str, Any]) -> bytes:
     return Document(e_list)
 
 
-def unmarshal(data: bytes) -> dict:
+def unmarshal(data: bytes) -> Dict[Any, Any]:
     data = list(data)
     new_data = {}
     UnE_list(data[4:-1], new_data)
