@@ -15,6 +15,8 @@ def Binary(elem: bytes) -> bytes:
     return Int32(elem[:-1]) + bytes([0]) + elem
 
 def Int32(elem: Any) -> bytes:
+    if isinstance(elem, str):
+        elem = elem.encode()
     return struct.pack('i', len(elem) + 1)
 
 def Document(e_list: bytes) -> bytes:
@@ -35,7 +37,7 @@ def UnE_list(data: list[int], new_data: Dict[Any, Any]) -> None:
         if bt == 2:
             key, i = make_key(data, i)
             #print(i)
-            let_amount = data[i]
+            let_amount = struct.unpack('i', bytes(data[i:i+4]))[0]
             i += 4
             list_for_value = []
             while let_amount > 1:
@@ -45,6 +47,7 @@ def UnE_list(data: list[int], new_data: Dict[Any, Any]) -> None:
             value = bytes(list_for_value).decode()
             new_data[key] = value
             i += 1
+
 
         elif bt == 1:
             key, i = make_key(data, i)
@@ -180,15 +183,14 @@ def unmarshal(data: bytes) -> Dict[Any, Any]:
     UnE_list(old_data[4:-1], new_data)
     return new_data
 
-'''
+
 #print(struct.unpack('=B', b'1'))
-g = {"вася": float('0.0'),
-    "vasya": float('-0.0'),
-    "12345": float('inf'),
-    "": float('-inf'),
-    "\t": float('nan'),}
+print(''.join(map(chr, range(1, 2 ** 12))).encode())
+g = {"p" + str(16): ''.join(map(chr, range(1, 2 ** 9)))
+    }
+print(chr(2**10))
 d = marshal(g)
-print(list(d))
+#print(list(d))
 #print(list(b'' + b'34' + b'1'))
 print(datetime(1970, 1, 1, tzinfo=timezone.utc))
 #print(bytes([3, 87]))
