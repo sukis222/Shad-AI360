@@ -41,7 +41,7 @@ def UnE_list(data: list[int], new_data: Dict[Any, Any]) -> None:
                 list_for_value.append(data[i])
                 let_amount -= 1
                 i += 1
-            value = bytes(list_for_value).decode()
+            value: Any = bytes(list_for_value).decode()
             new_data[key] = value
             i += 1
 
@@ -51,15 +51,15 @@ def UnE_list(data: list[int], new_data: Dict[Any, Any]) -> None:
             for j in range(8):
                 list_for_value.append(data[i])
                 i += 1
-            value = struct.unpack('d', bytes(list_for_value))[0]
+            value: Any = struct.unpack('d', bytes(list_for_value))[0]
             new_data[key] = value
 
         elif bt == 8:
             key, i = make_key(data, i)
             if data[i] == 0:
-                value = False
+                value: Any = False
             else:
-                value = True
+                value: Any = True
             new_data[key] = value
             i += 1
         #binary data
@@ -74,21 +74,21 @@ def UnE_list(data: list[int], new_data: Dict[Any, Any]) -> None:
         elif bt == 9:
             key, i = make_key(data, i)
             dt = data[i]
-            value = datetime(1970, 1, 1, 0, 0, 0, dt*1000, tzinfo=timezone.utc)
+            value: Any = datetime(1970, 1, 1, 0, 0, 0, dt*1000, tzinfo=timezone.utc)
             new_data[key] = value
             i += 8
 
         elif bt == 3:
             key, i = make_key(data, i)
             amount_of_bytes_in_doc = data[i]
-            value = unmarshal(bytes(data[i:i+amount_of_bytes_in_doc]))
+            value: Any = unmarshal(bytes(data[i:i+amount_of_bytes_in_doc]))
             i += amount_of_bytes_in_doc
             new_data[key] = value
 
         elif bt == 4:
             key, i = make_key(data, i)
             amount_of_bytes_in_doc = struct.unpack('i', bytes(data[i:i+4]))[0]
-            value = unmarshal(bytes(data[i:i+amount_of_bytes_in_doc]))
+            value: Any = unmarshal(bytes(data[i:i+amount_of_bytes_in_doc]))
             i += amount_of_bytes_in_doc
             list_from_dict = []
             for k in value:
@@ -97,19 +97,19 @@ def UnE_list(data: list[int], new_data: Dict[Any, Any]) -> None:
 
         elif bt == 16:
             key, i = make_key(data, i)
-            value = struct.unpack('i', bytes(data[i : i + 4]))[0]
+            value: Any = struct.unpack('i', bytes(data[i : i + 4]))[0]
             new_data[key] = value
             i += 4
 
         elif bt == 18:
             key, i = make_key(data, i)
-            value = struct.unpack('q', bytes(data[i : i + 8]))[0]
+            value: Any = struct.unpack('q', bytes(data[i : i + 8]))[0]
             new_data[key] = value
             i += 8
 
         elif bt == 6:
             key, i = make_key(data, i)
-            value = None
+            value: Any = None
             new_data[key] = value
 
 
@@ -172,9 +172,9 @@ def marshal(data: Dict[Any, Any]) -> bytes:
 
 
 def unmarshal(data: bytes) -> Dict[Any, Any]:
-    data = list(data)
+    old_data = list(data)
     new_data = {}
-    UnE_list(data[4:-1], new_data)
+    UnE_list(old_data[4:-1], new_data)
     return new_data
 
 '''
