@@ -112,6 +112,7 @@ def UnE_list(data: list[int], new_data: Dict[Any, Any]) -> None:
             key, i = make_key(data, i)
             value = None
             new_data[key] = value
+    return None
 
 
 def Element(key: str, elem: Any) -> bytes:
@@ -174,7 +175,7 @@ def marshal(data: Dict[Any, Any]) -> bytes:
 
 def unmarshal(data: bytes) -> Dict[Any, Any]:
     old_data = list(data)
-    new_data = {}
+    new_data: Dict[Any, Any] = {}
     UnE_list(old_data[4:-1], new_data)
     return new_data
 
