@@ -113,19 +113,6 @@ def UnE_list(data, new_data):
             new_data[key] = value
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 def Element(key, elem):
     e_name = Cstring(key)
     if isinstance(elem, str):
