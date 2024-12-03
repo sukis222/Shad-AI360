@@ -1,8 +1,8 @@
 import struct
 from datetime import datetime, timezone
+from typing import Dict, Any
 
-
-def make_key(data, i) -> tuple:
+def make_key(data: list[int], i: int) -> tuple[str, int]:
     i += 1
     list_for_key = []
     while  i < len(data) and data[i] != 0:
@@ -11,23 +11,23 @@ def make_key(data, i) -> tuple:
     i += 1
     return bytes(list_for_key).decode(), i
 
-def Binary(elem) -> bytes:
+def Binary(elem: bytes) -> bytes:
     return Int32(elem[:-1]) + bytes([0]) + elem
 
-def Int32(elem) -> bytes:
+def Int32(elem: Any) -> bytes:
     return struct.pack('i', len(elem) + 1)
 
-def Document(e_list) -> bytes:
+def Document(e_list: bytes) -> bytes:
     return struct.pack('i', len(e_list) + 5) + e_list + bytes([0])
 
-def E_list(data) -> bytes:
+def E_list(data: Dict[str, Any]) -> bytes:
     e_list = b''
     for key in data:
         elem = data[key]
         e_list += Element(key, elem)
     return e_list
 
-def UnE_list(data, new_data) -> None:
+def UnE_list(data: list[int], new_data: Dict[str, Any]) -> None:
     i = 0
     while i < len(data):
         bt = data[i]
@@ -113,7 +113,7 @@ def UnE_list(data, new_data) -> None:
             new_data[key] = value
 
 
-def Element(key, elem) -> bytes:
+def Element(key: str, elem: Any) -> bytes:
     e_name = Cstring(key)
     if isinstance(elem, str):
         return bytes([2]) + e_name + String(elem)
@@ -144,16 +144,15 @@ def Element(key, elem) -> bytes:
         return bytes([6]) + e_name
 
 
-def String(elem) -> bytes:
+def String(elem: str) -> bytes:
     return Int32(elem) + elem.encode() + bytes([0])
 
 
-
-def Cstring(elem) -> bytes:
+def Cstring(elem: str) -> bytes:
     return elem.encode() + bytes([0])
 
 
-def marshal(data) -> bytes:
+def marshal(data: Dict[str, Any]) -> bytes:
     # Сортируем data по ключам и присваиваем к data
     lst = []
     new_data = {}
@@ -172,10 +171,9 @@ def marshal(data) -> bytes:
     return Document(e_list)
 
 
-def unmarshal(data) -> dict:
+def unmarshal(data: bytes) -> dict:
     data = list(data)
     new_data = {}
-    full_len = len(data)
     UnE_list(data[4:-1], new_data)
     return new_data
 
