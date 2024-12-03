@@ -145,6 +145,7 @@ def Element(key: str, elem: Any) -> bytes:
     if elem is None:
         return bytes([6]) + e_name
 
+    return b''
 
 def String(elem: str) -> bytes:
     return Int32(elem) + elem.encode() + bytes([0])
