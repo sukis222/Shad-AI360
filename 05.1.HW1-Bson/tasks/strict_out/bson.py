@@ -244,7 +244,6 @@ def Element(key: str, elem: Any, data_for: Dict[Any, Any]) -> bytes:
     else:
         raise BsonUnsupportedObjectError
 
-    return b''
 
 def String(elem: str) -> bytes:
     return Int32(elem) + elem.encode() + bytes([0])
