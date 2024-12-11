@@ -86,11 +86,6 @@ def max_size_group(df: pd.DataFrame, columns: list[str]) -> tp.Iterable[tp.Any]:
     return max_size
 
 def is_luck(ticket: str) -> bool:
-    """
-    Determine if a ticket is lucky.
-    :param ticket: ticket number
-    :return: True if lucky, False otherwise
-    """
     if not ticket.isdigit() or len(ticket) % 2 != 0:
         return False
 
