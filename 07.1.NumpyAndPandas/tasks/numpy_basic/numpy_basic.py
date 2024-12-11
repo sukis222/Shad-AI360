@@ -1,6 +1,5 @@
 import numpy as np
 import numpy.typing as npt
-from numpy.core.fromnumeric import reshape
 
 
 def construct_array(
