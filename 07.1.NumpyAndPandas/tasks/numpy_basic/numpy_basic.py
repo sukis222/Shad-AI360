@@ -69,12 +69,3 @@ def construct_matrix(
 
 
 
-a = np.array([[171, 2, 9],
-              [291, 8, 9]])
-
-b = np.array([1, 1, 0])
-c = np.array([0, 1, 0])
-print(a[b, c])
-
-
-
